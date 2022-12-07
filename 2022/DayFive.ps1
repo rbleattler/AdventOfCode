@@ -23,10 +23,30 @@ function Split-Data {
   $MovesEndIndex = $Data.IndexOf('#endregion Moves')
   $StacksData = $Data[($StacksStartIndex + 1)..($StacksEndIndex - 1)]
   $MovesData = $Data[($MovesStartIndex + 1)..($MovesEndIndex - 1)]
-  $Columns = $StacksData[-1].Trim().Replace('   ',' ').replace(' ',',')
+  $Columns = $StacksData[-1].Trim().Replace('   ', ' ').replace(' ', ',')
+  $Stacks = @{}
+  # $Columns.Split(',').ForEach({ 
+  #     $Stacks[($PSItem.ToString() -as [char])] = @() 
+  #   })
+  
+  $StacksData[0..($Stacks.Count - 1)].forEach({
+      # $Stacks[$i] = 
+      # If a line isn't as long as the last line, insert spaces to make it the same length
+      $Line = $PSItem
+      if ($Line.Length -lt $StacksData[-1].Length) {
+        $Line = $Line + ' ' * ($StacksData[-1].Length - ($Line.Length - 1))
+      }
+      $SplitLine = $PSItem.Split(' ', 3, $null)
+      for ($i = 0; $i -lt $($Columns.split(',')).Count; $i++) {
+        # $SplitLine[$i] = $SplitLine[$i].Trim()
+        Write-Debug "SplitLine[$i] = $($SplitLine[$i])"
+        Write-Debug "Stacks[$($i+1)] = $($Stacks[($i + 1).ToString()])"
+        $Stacks.Item((($i + 1).ToString())) += $SplitLine[$i]
+      }
+      
+    })
   @{
-    Columns = $Columns
-    Stacks = $StacksData
+    Stacks = $Stacks
     Moves  = $MovesData
   }
 

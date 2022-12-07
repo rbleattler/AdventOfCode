@@ -1,6 +1,8 @@
+#        [Y]
+#[X]
 #region Stacks
     [D]    
-[N] [C]
+[N] [C]    
 [Z] [M] [P]
  1   2   3
 #endregion Stacks
