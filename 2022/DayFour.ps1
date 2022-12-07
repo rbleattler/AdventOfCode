@@ -6,10 +6,10 @@ Set-Location $PSScriptRoot
 
 
 # Get the preview data for Day Four from the subdirectory 'res'
-$PreviewData = Get-Content $pwd\res\DayFourPreviewData.txt
+$PreviewData = Get-Content $PSScriptRoot\res\DayFourPreviewData.txt
 
 # Get the full data for Day Four from the subdirectory 'res'
-$FullData = Get-Content $pwd\res\DayFourData.txt
+$FullData = Get-Content $PSScriptRoot\res\DayFourData.txt
 
 # Pre-process the data
 # Split each item in the PreviewData array into two arrays defined by the hyphen separated values, where the left value is the lower bound and the right value is the upper bound.
